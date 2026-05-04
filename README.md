@@ -1,3 +1,3 @@
-# React + Vite
+# scroll + annimation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is an animation and scrolling task that I have to do perfectly.
