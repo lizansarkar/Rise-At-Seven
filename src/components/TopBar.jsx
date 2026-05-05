@@ -42,15 +42,15 @@ function TopBar() {
   }, []);
 
   return (
-    <div className="w-full bg-[#efeeec] px-2 pt-2 pb-2">
+    <div className="w-full bg-[#efeeec] px-2 pb-2">
       <div
         ref={containerRef}
-        className="relative bg-[#b2f6e3] rounded-full py-2 px-6 flex justify-center items-center cursor-pointer overflow-hidden group"
+        className="relative bg-[#b2f6e3] rounded-full py-[0.3rem] px-6 flex justify-center items-center cursor-pointer overflow-hidden group"
       >
         <div className="relative h-5 flex flex-col items-center justify-center overflow-hidden">
           <p
             ref={labelRef}
-            className="text-[#111212] font-bold text-xs md:text-sm tracking-tight text-center whitespace-nowrap"
+            className="text-neutral font-bold text-sm md:text-sm tracking-tight text-center whitespace-nowrap"
           >
             <span className="mr-2">🚨</span>
             Where are your customers actually searching? Download the report
@@ -58,7 +58,7 @@ function TopBar() {
           
           <p
             ref={hoverLabelRef}
-            className="absolute text-[#111212] font-bold text-xs md:text-sm tracking-tight text-center whitespace-nowrap"
+            className="absolute text-neutral font-bold text-sm md:text-sm tracking-tight text-center whitespace-nowrap"
           >
             <span className="mr-2">🚨</span>
             Where are your customers actually searching? Download the report

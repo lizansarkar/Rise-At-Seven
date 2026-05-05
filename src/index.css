@@ -2,12 +2,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #111212;
+  --color-primary: #efeeec;
   --color-secondary: #b2f6e3;
   --color-accent: #ffffff;
   --color-neutral: #1e1f1f;
   
   --font-inter: "Inter", sans-serif;
+}
+
+.color {
+  color: #efeeec;
+  color: #b2f6e3;
+  color: #ffffff;
+  color: #1e1f1f;
 }
 
 @layer base {
@@ -18,6 +25,7 @@
   body {
     font-family: var(--font-inter);
     -webkit-font-smoothing: antialiased;
-    background-color: white; 
+    background-color: #efeeec;
+    padding: 10px;
   }
 }

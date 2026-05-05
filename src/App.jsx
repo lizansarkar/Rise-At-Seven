@@ -5,7 +5,7 @@ import Lenis from "lenis";
 import "./App.css";
 import CustomCursor from "./components/CustomCursor";
 import TextReveal from "./components/TextReveal";
-import Marquee from "./components/Marquee";
+import MarqueeSection from "./components/MarqueeSection";
 import HorizontalGallery from "./components/HorizontalGallery";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
@@ -62,17 +62,10 @@ function App() {
     <>
       <TopBar></TopBar>
       <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <CustomCursor />
+      {/* <CustomCursor /> */}
       <main className="overflow-x-hidden">
         <HeroSection />
-        <Marquee
-          items={[
-            "Rise At Seven",
-            "Premium Design",
-            "Smooth Scroll",
-            "Creative Strategy",
-          ]}
-        />
+        <MarqueeSection/>
         <HorizontalGallery />
         <FeaturedSection />
         <ServicesSection />

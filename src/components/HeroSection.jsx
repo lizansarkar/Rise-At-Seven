@@ -1,9 +1,155 @@
-import React from 'react'
+import React from "react";
+import { motion } from "framer-motion";
+import heroImg from "../assets/Emirates-airpline-in-flight.webp";
 
-function HeroSection() {
+const HeroSection = () => {
   return (
-    <div>HeroSection</div>
-  )
-}
+    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+      {/* Background Image with Blur Effect */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={heroImg}
+          alt="Hero Background"
+          className="w-full h-full object-cover scale-110 blur-[8px] brightness-[0.7]"
+        />
+        <div className="absolute inset-0 bg-gray/5"></div>
+      </div>
 
-export default HeroSection
+      {/* Hero Content */}
+      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+        {/* Top Badges/Awards*/}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col items-center mb-12"
+        >
+          {/* Main Heading Text */}
+          <h2 className="text-white text-sm md:text-md font-medium tracking-tighter uppercase leading-none mb-3 text-center">
+            #1 Most Recommended <br /> Content Marketing Agency
+          </h2>
+
+          {/* Awards Section */}
+          <div className="flex items-center justify-center">
+            {/* Left Wreath Image/Icon */}
+            <img
+              src="https://www.clker.com/cliparts/k/a/5/G/L/d/half-right-laurel.svg"
+              alt="wreath"
+              className="h-8 md:h-13 opacity-50 brightness-0 invert"
+              style={{ transform: "rotateY(180deg)" }}
+            />
+
+            {/* Awards Icons Container */}
+            <div className="flex items-center gap-2 md:gap-3 brightness-200 contrast-125 opacity-80">
+              <img
+                src="/src/assets/marquee/global-search-awards.webp"
+                alt="Global Search Awards"
+                className="h-6 md:h-8 object-contain"
+              />
+              <img
+                src="/src/assets/marquee/global-search-awards.webp"
+                alt="The Drum"
+                className="h-6 md:h-8 object-contain"
+              />
+              <img
+                src="/src/assets/marquee/global-search-awards.webp"
+                alt="UK Social Media Awards"
+                className="h-6 md:h-8 object-contain"
+              />
+              <img
+                src="/src/assets/marquee/global-search-awards.webp"
+                alt="Content Awards"
+                className="h-6 md:h-8 object-contain"
+              />
+            </div>
+
+            {/* Right Wreath Image/Icon */}
+            <img
+              src="https://www.clker.com/cliparts/k/a/5/G/L/d/half-right-laurel.svg"
+              alt="wreath"
+              /* brightness-0 এবং invert ব্যবহার করলে যেকোনো ব্ল্যাক SVG সাদা হয়ে যায় */
+              className="h-8 md:h-13 opacity-50 brightness-0 invert"
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+        </motion.div>
+
+        {/* Main Heading with Integrated Image */}
+        <motion.h1
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-5xl md:text-[120px] font-bold text-white tracking-tighter leading-[0.95] flex flex-wrap items-center justify-center gap-x-4"
+        >
+          We Create
+          <span className="flex items-center gap-2">
+            Category
+            {/* টেক্সটের মাঝখানের সেই ছোট ইমেজ ইফেক্ট */}
+            <div className="w-16 h-16 md:w-30 md:h-30 rounded-2xl overflow-hidden border-2 border-white/20 inline-block rotate-[-2deg] shadow-2xl mx-2">
+              <img
+                src={heroImg}
+                alt="Inline"
+                className="w-full h-full object-cover scale-150"
+              />
+            </div>
+          </span>
+          Leaders
+        </motion.h1>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-6 text-xl md:text-2xl text-white/90 font-medium tracking-tight"
+        >
+          on every searchable platform
+        </motion.p>
+
+        {/* Brand/Platform Logos */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mt-16 flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-80"
+        >
+          {[
+            "Google",
+            "ChatGPT",
+            "Gemini",
+            "TikTok",
+            "YouTube",
+            "Pinterest",
+            "GIPHY",
+            "reddit",
+            "amazon",
+          ].map((brand) => (
+            <span
+              key={brand}
+              className="text-white text-sm md:text-lg font-bold tracking-tight cursor-pointer hover:opacity-100 transition-opacity"
+            >
+              {brand}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Footer Info within Hero */}
+      <div className="absolute bottom-10 w-full px-10 flex justify-between items-end">
+        <div className="max-w-[200px]">
+          <p className="text-[10px] text-white/60 leading-tight">
+            Organic media planners creating, distributing & optimising content
+            for SEO, Social, PR & Paid Search.
+          </p>
+        </div>
+        <div className="text-right">
+          <p className="text-[10px] text-white/60 uppercase font-bold tracking-widest">
+            4 Global Offices serving UK, USA (New York) & EU
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;
