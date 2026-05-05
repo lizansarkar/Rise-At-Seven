@@ -1,82 +1,137 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+// Font Awesome imports
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
-function Navbar() {
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  
+  // নতুন স্টেট: স্ক্রল করলে স্টাইল চেঞ্জ করার জন্য
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  const { scrollY } = useScroll();
+
+  // Scroll logic
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    
+    if (latest > previous && latest > 100) {
+      setHidden(true);
+      setIsOpen(false); 
+    } else {
+      setHidden(false);
+    }
+
+    if (latest > 10) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  });
+
+  const navLinks = [
+    { name: "Services +", link: "#" },
+    { name: "International +", link: "#" },
+    { name: "About +", link: "#" },
+    { name: "Work", link: "#", badge: "25" },
+    { name: "Careers", link: "#" },
+    { name: "Blog", link: "#" },
+    { name: "Webinar", link: "#" },
+  ];
+
   return (
-    <div>
-      <div className="navbar bg-base-100 shadow-sm">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {" "}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
-              </svg>
-            </div>
-            <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+    <motion.nav
+      variants={{
+        visible: { y: 0, opacity: 1 },
+        hidden: { y: "-150%", opacity: 0 },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed top-13 inset-x-0 z-[100] mx-auto"
+    >
+      <div 
+        className={`
+          flex items-center justify-between px-4 md:px-8 py-3 rounded-full transition-all duration-500 ease-in-out
+          ${isScrolled 
+            ? "backdrop-blur-md shadow-[0_8px_32px_0_rgba(0,0,0,0.05)]" 
+            : "bg-transparent border-transparent shadow-none"
+          }
+        `}
+      >
+        
+        {/* Logo Section */}
+        <div className="flex items-center cursor-pointer">
+           <h1 className="text-xl md:text-2xl font-bold tracking-tighter text-[#111212]">
+             Rise at Seven<span className="text-[10px] align-top">®</span>
+           </h1>
+        </div>
+
+        {/* Desktop Links */}
+        <div className="hidden lg:flex items-center gap-8">
+          {navLinks.map((link, index) => (
+            <a
+              key={index}
+              href={link.link}
+              className="text-[13px] font-bold text-[#111212] hover:opacity-60 transition-all relative group uppercase tracking-wide"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
-            </ul>
-          </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+              {link.name}
+              {link.badge && (
+                <span className="absolute -top-3 -right-5 bg-[#b2f6e3] text-[9px] font-bold px-1.5 py-0.5 rounded-full text-black border border-white">
+                  {link.badge}
+                </span>
+              )}
+            </a>
+          ))}
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2 bg-base-100 w-40 z-1">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
-        </div>
-        <div className="navbar-end">
-          <a className="btn">Button</a>
+
+        {/* Right Side: CTA Button & Hamburger */}
+        <div className="flex items-center gap-3">
+          <button className="bg-[#111212] text-white px-6 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-black transition-all group active:scale-95 cursor-pointer">
+            Get In Touch
+            <FontAwesomeIcon 
+              icon={faArrowUpRightFromSquare} 
+              className="text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" 
+            />
+          </button>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="lg:hidden w-10 h-10 flex items-center justify-center text-[#111212] cursor-pointer"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <FontAwesomeIcon icon={isOpen ? faXmark : faBars} size="lg" />
+          </button>
         </div>
       </div>
-    </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: -10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          className="absolute top-20 inset-x-0 bg-white border border-gray-100 rounded-[2rem] p-8 shadow-2xl lg:hidden flex flex-col gap-5 mx-2"
+        >
+          {navLinks.map((link, index) => (
+            <a
+              key={index}
+              href={link.link}
+              className="text-xl font-black text-[#111212] flex justify-between items-center border-b border-gray-50 pb-2"
+              onClick={() => setIsOpen(false)}
+            >
+              {link.name}
+              {link.badge && (
+                <span className="bg-[#b2f6e3] text-[10px] px-2 py-1 rounded-full border border-white shadow-sm">
+                  {link.badge}
+                </span>
+              )}
+            </a>
+          ))}
+        </motion.div>
+      )}
+    </motion.nav>
   );
-}
+};
 
 export default Navbar;
