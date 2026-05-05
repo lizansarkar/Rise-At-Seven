@@ -1,36 +1,6 @@
-import { useRef, useEffect } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import React from 'react'
 
 function FeaturedSection() {
-  const sectionRef = useRef(null)
-
-  useEffect(() => {
-    if (!sectionRef.current) return
-
-    const cards = sectionRef.current.querySelectorAll('.featured-card')
-
-    cards.forEach((card, index) => {
-      gsap.from(card, {
-        y: 100,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    })
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
-  }, [])
-
   const featuredProjects = [
     {
       id: 1,
@@ -53,7 +23,7 @@ function FeaturedSection() {
   ]
 
   return (
-    <section id="featured" className="featured-section" ref={sectionRef}>
+    <section id="featured" className="featured-section">
       <div className="featured-container">
         <div className="featured-header">
           <span className="section-label">Featured work</span>
@@ -62,7 +32,7 @@ function FeaturedSection() {
         </div>
         <div className="featured-grid">
           {featuredProjects.map((project) => (
-            <div key={project.id} className="featured-card">
+            <div key={project.id} className="featured-card custom-cursor-target">
               <div className="card-image">
                 <img src={project.image} alt={project.title} />
               </div>

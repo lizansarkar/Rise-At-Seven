@@ -11,31 +11,47 @@ function CustomCursor() {
     const handleMouseMove = (event) => {
       positionRef.current = { x: event.clientX, y: event.clientY }
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(calc(${event.clientX}px - 50%), calc(${event.clientY}px - 50%))`
+        dotRef.current.style.left = event.clientX + 'px'
+        dotRef.current.style.top = event.clientY + 'px'
       }
     }
 
-    const handleInteractiveEnter = () => {
-      document.documentElement.classList.add('cursor-hover')
+    const handleMouseEnter = (event) => {
+      if (event.target.closest('.custom-cursor-target')) {
+        document.documentElement.classList.add('cursor-active')
+      }
     }
 
-    const handleInteractiveLeave = () => {
-      document.documentElement.classList.remove('cursor-hover')
+    const handleMouseLeave = (event) => {
+      if (!event.target.closest('.custom-cursor-target')) {
+        document.documentElement.classList.remove('cursor-active', 'cursor-hover')
+      }
     }
 
-    const interactiveEls = document.querySelectorAll('a, button, input, textarea, .hamburger')
-    interactiveEls.forEach((el) => {
-      el.addEventListener('mouseenter', handleInteractiveEnter)
-      el.addEventListener('mouseleave', handleInteractiveLeave)
-    })
+    const handleInteractiveEnter = (event) => {
+      if (event.target.closest('.custom-cursor-target')) {
+        document.documentElement.classList.add('cursor-hover')
+      }
+    }
+
+    const handleInteractiveLeave = (event) => {
+      if (event.target.closest('.custom-cursor-target')) {
+        document.documentElement.classList.remove('cursor-hover')
+      }
+    }
 
     document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mouseenter', handleMouseEnter, true)
+    document.addEventListener('mouseleave', handleMouseLeave, true)
+    document.addEventListener('mouseenter', handleInteractiveEnter, true)
+    document.addEventListener('mouseleave', handleInteractiveLeave, true)
 
     const animate = () => {
-      outlinePositionRef.current.x += (positionRef.current.x - outlinePositionRef.current.x) * 0.18
-      outlinePositionRef.current.y += (positionRef.current.y - outlinePositionRef.current.y) * 0.18
-      if (outlineRef.current) {
-        outlineRef.current.style.transform = `translate(calc(${outlinePositionRef.current.x}px - 50%), calc(${outlinePositionRef.current.y}px - 50%))`
+      if (outlineRef.current && outlinePositionRef.current) {
+        outlinePositionRef.current.x += (positionRef.current.x - outlinePositionRef.current.x) * 0.2
+        outlinePositionRef.current.y += (positionRef.current.y - outlinePositionRef.current.y) * 0.2
+        outlineRef.current.style.left = outlinePositionRef.current.x + 'px'
+        outlineRef.current.style.top = outlinePositionRef.current.y + 'px'
       }
       requestRef.current = requestAnimationFrame(animate)
     }
@@ -44,11 +60,13 @@ function CustomCursor() {
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
-      interactiveEls.forEach((el) => {
-        el.removeEventListener('mouseenter', handleInteractiveEnter)
-        el.removeEventListener('mouseleave', handleInteractiveLeave)
-      })
-      cancelAnimationFrame(requestRef.current)
+      document.removeEventListener('mouseenter', handleMouseEnter, true)
+      document.removeEventListener('mouseleave', handleMouseLeave, true)
+      document.removeEventListener('mouseenter', handleInteractiveEnter, true)
+      document.removeEventListener('mouseleave', handleInteractiveLeave, true)
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current)
+      }
     }
   }, [])
 
