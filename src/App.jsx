@@ -15,6 +15,7 @@ import StackSection from "./components/StackSection";
 import NewsSection from "./components/NewsSection";
 import Footer from "./components/Footer";
 import TopBar from "./components/TopBar";
+import OurStory from "./components/OurStory";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,6 +67,7 @@ function App() {
       <main className="overflow-x-hidden">
         <HeroSection />
         <MarqueeSection/>
+        <OurStory />
         <HorizontalGallery />
         <FeaturedSection />
         <ServicesSection />

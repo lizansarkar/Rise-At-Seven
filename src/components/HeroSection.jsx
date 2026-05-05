@@ -2,9 +2,19 @@ import React from "react";
 import { motion } from "framer-motion";
 import heroImg from "../assets/Emirates-airpline-in-flight.webp";
 
+const brands = [
+  { name: "Google", logo: "/logos/google.webp" },
+  { name: "ChatGPT", logo: "/logos/chat-gpt.webp" },
+  { name: "Gemini", logo: "/logos/gemini.webp" },
+  { name: "Pinterest", logo: "/logos/pinterest.webp" },
+  { name: "Reddit", logo: "/logos/reddit.webp" },
+  { name: "Amazon", logo: "/logos/amazon.webp" },
+  { name: "Giphy", logo: "/logos/giphy.webp" },
+];
+
 const HeroSection = () => {
   return (
-    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden rounded-3xl">
       {/* Background Image with Blur Effect */}
       <div className="absolute inset-0 z-0">
         <img
@@ -67,7 +77,6 @@ const HeroSection = () => {
             <img
               src="https://www.clker.com/cliparts/k/a/5/G/L/d/half-right-laurel.svg"
               alt="wreath"
-              /* brightness-0 এবং invert ব্যবহার করলে যেকোনো ব্ল্যাক SVG সাদা হয়ে যায় */
               className="h-8 md:h-13 opacity-50 brightness-0 invert"
               style={{ cursor: "pointer" }}
             />
@@ -84,7 +93,6 @@ const HeroSection = () => {
           We Create
           <span className="flex items-center gap-2">
             Category
-            {/* টেক্সটের মাঝখানের সেই ছোট ইমেজ ইফেক্ট */}
             <div className="w-16 h-16 md:w-30 md:h-30 rounded-2xl overflow-hidden border-2 border-white/20 inline-block rotate-[-2deg] shadow-2xl mx-2">
               <img
                 src={heroImg}
@@ -113,37 +121,27 @@ const HeroSection = () => {
           transition={{ delay: 0.8 }}
           className="mt-16 flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-80"
         >
-          {[
-            "Google",
-            "ChatGPT",
-            "Gemini",
-            "TikTok",
-            "YouTube",
-            "Pinterest",
-            "GIPHY",
-            "reddit",
-            "amazon",
-          ].map((brand) => (
-            <span
-              key={brand}
-              className="text-white text-sm md:text-lg font-bold tracking-tight cursor-pointer hover:opacity-100 transition-opacity"
-            >
-              {brand}
-            </span>
+          {brands.map((brand) => (
+            <img
+              key={brand.name}
+              src={brand.logo}
+              alt={brand.name}
+              className="h-6 md:h-5 w-auto object-contain cursor-pointer hover:opacity-100 transition-opacity brightness-0 invert"
+            />
           ))}
         </motion.div>
       </div>
 
       {/* Footer Info within Hero */}
       <div className="absolute bottom-10 w-full px-10 flex justify-between items-end">
-        <div className="max-w-[200px]">
-          <p className="text-[10px] text-white/60 leading-tight">
+        <div className="max-w-[500px]">
+          <p className="font-medium leading-normal text-pretty mb-5 | lg:text-base text-white mb-0!">
             Organic media planners creating, distributing & optimising content
             for SEO, Social, PR & Paid Search.
           </p>
         </div>
-        <div className="text-right">
-          <p className="text-[10px] text-white/60 uppercase font-bold tracking-widest">
+        <div className="text-right max-w-[300px]">
+          <p className="font-medium text-white uppercase font-bold tracking-widest">
             4 Global Offices serving UK, USA (New York) & EU
           </p>
         </div>

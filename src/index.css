@@ -29,3 +29,25 @@
     padding: 10px;
   }
 }
+
+@layer components {
+  .btn-sweep {
+    @apply relative overflow-hidden px-8 py-3 rounded-full flex items-center justify-center transition-all duration-500 bg-white text-black;
+  }
+
+  .btn-sweep:hover {
+    @apply bg-black text-white;
+  }
+
+  .sweep-text {
+    @apply relative inline-block overflow-hidden h-[24px] leading-[24px];
+  }
+
+  .sweep-text span {
+    @apply block transition-transform duration-500 ease-in-out;
+  }
+
+  .btn-sweep:hover .sweep-text span {
+    @apply -translate-y-full;
+  }
+}
