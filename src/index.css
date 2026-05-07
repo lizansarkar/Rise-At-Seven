@@ -55,3 +55,9 @@
 .active-reveal .hover-reveal-bg {
   clip-path: circle(150% at 50% 100%);
 }
+
+/* Better GSAP performance */
+/* * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */

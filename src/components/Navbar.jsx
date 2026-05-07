@@ -75,7 +75,9 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Links */}
-        <div className={`hidden lg:flex items-center gap-8 ${isScrolled ? "text-neutral" : "text-accent"}`}>
+        <div
+          className={`hidden lg:flex items-center gap-8 ${isScrolled ? "text-neutral" : "text-accent"}`}
+        >
           {navLinks.map((link, index) => (
             <a
               key={index}
@@ -94,12 +96,24 @@ const Navbar = () => {
 
         {/* Right Side: CTA Button & Hamburger */}
         <div className="flex items-center gap-3">
-          <button className="bg-[#111212] text-white px-6 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-black transition-all group active:scale-95 cursor-pointer">
-            Get In Touch
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              className="text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-            />
+          <button className="btn-sweep !text-black !px-6 !py-2.5 !text-sm !font-bold active:scale-95">
+            <div className="sweep-text">
+              <span className="flex items-center gap-2">
+                Get In Touch
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  className="text-[10px]"
+                />
+              </span>
+
+              <span className="flex items-center gap-2">
+                Get In Touch
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  className="text-[10px]"
+                />
+              </span>
+            </div>
           </button>
 
           {/* Mobile Menu Toggle */}
