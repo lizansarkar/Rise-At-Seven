@@ -66,7 +66,7 @@ function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#ffffff] p-2">
+    <footer className="w-full p-2">
       <div className="bg-[#111212] rounded-3xl overflow-hidden">
         {/* Main Container */}
         <div className="mx-4 md:rounded-[60px] border border-gray-800/30 p-6">

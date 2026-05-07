@@ -68,7 +68,7 @@ function App() {
         <HeroSection />
         <MarqueeSection/>
         <OurStory />
-        <HorizontalGallery />
+        {/* <HorizontalGallery /> */}
         <FeaturedSection />
         <ServicesSection />
         <StackSection />

@@ -1,42 +1,34 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import "tailwindcss";
+﻿@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @theme {
   --color-primary: #efeeec;
   --color-secondary: #b2f6e3;
   --color-accent: #ffffff;
   --color-neutral: #1e1f1f;
-  
   --font-inter: "Inter", sans-serif;
-}
-
-.color {
-  color: #efeeec;
-  color: #b2f6e3;
-  color: #ffffff;
-  color: #1e1f1f;
 }
 
 @layer base {
   :root {
     font-family: var(--font-inter);
   }
-
   body {
     font-family: var(--font-inter);
-    -webkit-font-smoothing: antialiased;
     background-color: #efeeec;
-    padding: 10px;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
 @layer components {
   .btn-sweep {
-    @apply relative overflow-hidden px-8 py-3 rounded-full flex items-center justify-center transition-all duration-500 bg-white text-black;
+    @apply relative overflow-hidden px-8 py-3 rounded-[40px] flex items-center justify-center 
+           bg-white text-black border border-black/10 cursor-pointer;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .btn-sweep:hover {
-    @apply bg-black text-white;
+    @apply rounded-[12px] text-neutral;
   }
 
   .sweep-text {
@@ -50,4 +42,16 @@
   .btn-sweep:hover .sweep-text span {
     @apply -translate-y-full;
   }
+}
+
+.hover-reveal-bg {
+  position: absolute;
+  inset: 0;
+  background-color: var(--hover-bg-color);
+  clip-path: circle(0% at 50% 100%);
+  transition: clip-path 2s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 5;
+}
+.active-reveal .hover-reveal-bg {
+  clip-path: circle(150% at 50% 100%);
 }
