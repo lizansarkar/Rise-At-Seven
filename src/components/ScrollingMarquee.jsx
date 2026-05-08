@@ -16,7 +16,7 @@ const ScrollingMarquee = () => {
       xPercent: -50,
       ease: "none",
       duration: 100,
-      repeat: -1,
+      // repeat: -1,
     });
 
     ScrollTrigger.create({
@@ -29,7 +29,7 @@ const ScrollingMarquee = () => {
           timeScale:
             self.direction === 1
               ? 1 + Math.abs(velocity)
-              : (1 + Math.abs(velocity)),
+              : 1 + Math.abs(velocity),
           duration: 0.5,
         });
       },
