@@ -16,6 +16,7 @@ import NewsSection from "./components/NewsSection";
 import Footer from "./components/Footer";
 import TopBar from "./components/TopBar";
 import OurStory from "./components/OurStory";
+import ScrollingMarquee from "./components/ScrollingMarquee";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,6 +72,7 @@ function App() {
         {/* <HorizontalGallery /> */}
         <FeaturedSection />
         <ServicesSection />
+        <ScrollingMarquee></ScrollingMarquee>
         <StackSection />
         <NewsSection />
         <Footer />
