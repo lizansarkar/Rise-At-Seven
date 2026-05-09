@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import TopBar from "./components/TopBar";
 import OurStory from "./components/OurStory";
 import ScrollingMarquee from "./components/ScrollingMarquee";
+import WaveMarquee from "./components/WaveMarquee";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -75,6 +76,7 @@ function App() {
         <ScrollingMarquee></ScrollingMarquee>
         <StackSection />
         <NewsSection />
+        <WaveMarquee></WaveMarquee>
         <Footer />
       </main>
     </>
