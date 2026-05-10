@@ -1,44 +1,51 @@
 import React from "react";
 import { motion } from "framer-motion";
 import heroImg from "../assets/Emirates-airpline-in-flight.webp";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  // faBars,
+  // faXmark,
+  faArrowUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 const OurStory = () => {
   // Pure SVG Arrow
-  const ArrowIcon = () => (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="ml-1"
-    >
-      <line x1="7" y1="17" x2="17" y2="7"></line>
-      <polyline points="7 7 17 7 17 17"></polyline>
-    </svg>
-  );
+  // const ArrowIcon = () => (
+  //   <svg
+  //     width="14"
+  //     height="14"
+  //     viewBox="0 0 24 24"
+  //     fill="none"
+  //     stroke="currentColor"
+  //     strokeWidth="3"
+  //     strokeLinecap="round"
+  //     strokeLinejoin="round"
+  //     className="ml-1"
+  //   >
+  //     <line x1="7" y1="17" x2="17" y2="7"></line>
+  //     <polyline points="7 7 17 7 17 17"></polyline>
+  //   </svg>
+  // );
 
-  // Reusable Sweep Button
-  const SweepButton = ({ text, isPrimary = false }) => (
-    <button
-      className={`btn-sweep ${!isPrimary ? "bg-transparent hover:bg-black" : ""}`}
-      style={{ cursor: "pointer" }}
-    >
-      <div className="sweep-text">
-        <span className="flex flex-col">
-          <em className="not-italic flex items-center font-medium">
-            {text} <ArrowIcon />
-          </em>
-          <em className="not-italic flex items-center font-medium text-white">
-            {text} <ArrowIcon />
-          </em>
-        </span>
-      </div>
-    </button>
-  );
+  // // Reusable Sweep Button
+  // const SweepButton = ({ text, isPrimary = false }) => (
+  //   <button
+  //     className={`btn-sweep ${!isPrimary ? "bg-transparent hover:bg-black" : ""}`}
+  //     style={{ cursor: "pointer" }}
+  //   >
+  //     <div className="sweep-text">
+  //       <span className="flex flex-col">
+  //         <em className="not-italic flex items-center font-medium">
+  //           {text} <ArrowIcon />
+  //         </em>
+  //         <em className="not-italic flex items-center font-medium text-white">
+  //           {text} <ArrowIcon />
+  //         </em>
+  //       </span>
+  //     </div>
+  //   </button>
+  // );
 
   return (
     <section className="w-full bg-[#eeeeee] py-20 px-6 md:px-12 overflow-hidden">
@@ -75,9 +82,45 @@ const OurStory = () => {
             </motion.h2>
 
             {/* Buttons Layout - এখন এটিও টেক্সটের সাথে এলাইন হয়ে থাকবে */}
-            <div className="mt-12 flex items-center gap-6">
-              <SweepButton text="Our Story" isPrimary={true} />
-              <SweepButton text="Our Services" isPrimary={false} />
+            <div className="mt-12 flex items-center gap-2">
+              <button className="btn-sweep !text-black !px-6 !py-2.5 !text-md !font-medium active:scale-95">
+                <div className="sweep-text">
+                  <span className="flex items-center gap-2">
+                    Our Story
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      className="text-[10px]"
+                    />
+                  </span>
+
+                  <span className="flex items-center gap-2">
+                    Our Story
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      className="text-[10px]"
+                    />
+                  </span>
+                </div>
+              </button>
+              <button className="btn-sweep bg-transparent border border-transparent !text-black !px-6 !py-2.5 !text-sm !font-bold active:scale-95">
+                <div className="sweep-text">
+                  <span className="flex items-center gap-2">
+                    Our Service
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      className="text-[10px]"
+                    />
+                  </span>
+
+                  <span className="flex items-center gap-2">
+                    Our Service
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      className="text-[10px]"
+                    />
+                  </span>
+                </div>
+              </button>
             </div>
           </div>
         </div>

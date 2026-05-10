@@ -32,7 +32,7 @@ const services = [
   {
     text: "Data & Insights",
     image:
-      "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=1200",
+      "https://png.pngtree.com/thumb_back/fh260/background/20210902/pngtree-hand-gesture-likes-cooperation-business-team-photograph-with-picture-business-team-image_788590.jpg",
     link: "#",
   },
   {
@@ -45,35 +45,22 @@ const services = [
 
 function ServicesSection() {
   return (
-    <section className="bg-[#efeeec] py-24 px-5 md:px-10 lg:px-16 overflow-hidden">
+    <section className="py-10 px-5 md:px-10 lg:px-16 overflow-hidden">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 pb-10 border-b border-black/10">
-        <div className="flex items-center gap-5">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 pb-5 border-b border-black/10">
+        <div className="flex items-center">
           <h2
-            className="
-              text-[64px]
-              md:text-[120px]
-              leading-[0.9]
-              font-bold
-              tracking-[-0.06em]
-              text-[#111111]
-            "
-          >
-            Our Services
-          </h2>
-
-          <div class="service-card left">
-            <img
-              src="image-1.jpg"
-              alt="Search & Growth Strategy"
-              class="service-image"
-            />
-
-            <div class="service-content">
-              <h3>Search & Growth Strategy</h3>
-              <span class="arrow">↗</span>
+            className="text-[64px] md:text-[100px] font-medium text-neutral flex items-center gap-2 md:gap-3">
+            <span>Our</span>
+            <div className="inline-block w-15 h-15 md:w-25 md:h-25 rounded-[0.5rem] md:rounded-[1rem] overflow-hidden mt-2">
+              <img
+                src="https://rise-atseven.transforms.svdcdn.com/production/images/IMG_5079.JPG?w=200&h=200&q=80&fm=webp&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&dm=1750944462&s=5eb651d549739cde26429958911743ea"
+                alt="Search & Growth Strategy"
+                className="w-full h-full object-cover scale-110"
+              />
             </div>
-          </div>
+            <span>Services</span>
+          </h2>
         </div>
 
         {/* Button */}

@@ -5,67 +5,62 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const WaveMarquee = () => {
-  const marqueeContainerRef = useRef(null);
-  const textRef = useRef(null);
+  const svgRef = useRef(null);
+  const textPathRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    const textElement = textRef.current;
-
-    // ১. টেক্সটটি ডান থেকে বামে এবং বাম থেকে ডানে স্লাইড করার অ্যানিমেশন
-    const marqueeTween = gsap.to(textElement, {
-      xPercent: -50, // টেক্সটটিকে অর্ধেক স্লাইড করাবে
-      ease: "none",
+    // স্ক্রল করার সাথে সাথে টেক্সট পাথ এর startOffset পরিবর্তন হবে
+    // এটি টেক্সটকে ঢেউয়ের মতো পথের ওপর দিয়ে টেনে নিয়ে যাবে
+    gsap.to(textPathRef.current, {
+      attr: { startOffset: "-100%" }, // ডান থেকে বামে মুভমেন্ট
       scrollTrigger: {
-        trigger: marqueeContainerRef.current,
-        start: "top bottom", // যখন সেকশনটি স্ক্রিনের নিচে দেখা যাবে
-        end: "bottom top",    // যখন সেকশনটি স্ক্রিন পার হয়ে উপরে যাবে
-        scrub: 1,            // স্ক্রল অনুযায়ী স্মুথ মুভমেন্ট
+        trigger: containerRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.5, // আরও স্মুথ মুভমেন্টের জন্য ১.৫ ব্যবহার করা হয়েছে
       },
     });
 
-    // ২. কার্ভ বা বাঁকা ইফেক্টের জন্য জ্যামিতিক অ্যানিমেশন (Skew বা Rotate)
-    gsap.fromTo(
-      textElement,
-      { skewX: 10, rotate: 5 },
-      {
-        skewX: -10,
-        rotate: -5,
-        ease: "power1.inOut",
-        scrollTrigger: {
-          trigger: marqueeContainerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-      }
-    );
-
     return () => {
-      // ক্লিনআপ
-      marqueeTween.kill();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
   return (
-    <section
-      ref={marqueeContainerRef}
-      className="relative w-full h-[60vh] flex items-center justify-center bg-[#efeeec] overflow-hidden select-none"
+    <section 
+      ref={containerRef} 
+      className="relative w-full h-[80vh] bg-[#efeeec] flex items-center justify-center overflow-hidden"
     >
-      <div
-        ref={textRef}
-        className="flex whitespace-nowrap will-change-transform"
+      <svg
+        ref={svgRef}
+        viewBox="0 0 1000 400"
+        className="w-[150%] md:w-[120%] h-auto overflow-visible select-none fill-current text-black"
+        preserveAspectRatio="xMidYMid meet"
       >
-        {/* বড় বড় ফন্টে একই টেক্সট কয়েকবার রিপিট করছি যাতে গ্যাপ না থাকে */}
-        <h1 className="text-[12rem] md:text-[20rem] font-bold tracking-tighter leading-none flex items-center">
-          Ready to Rise <span className="mx-10 md:mx-20">★</span> 
-          Ready to Rise <span className="mx-10 md:mx-20">★</span>
-          Ready to Rise <span className="mx-10 md:mx-20">★</span>
-        </h1>
-      </div>
+        <defs>
+          {/* এখানে আমরা সেই 'ঢেউ' বা কার্ভ পাথটি ডিফাইন করছি */}
+          <path
+            id="wavePath"
+            d="M0,200 C200,200 400,100 600,100 C800,100 1000,300 1200,300"
+            fill="transparent"
+          />
+        </defs>
 
-      {/* ঐচ্ছিক: টেক্সট এর পেছনে হালকা শ্যাডো বা ওভারলে দিতে চাইলে */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#efeeec] via-transparent to-[#efeeec] opacity-30 z-10" />
+        <text className="text-[80px] font-bold tracking-tighter uppercase">
+          <textPath
+            ref={textPathRef}
+            xlinkHref="#wavePath"
+            startOffset="100%" // শুরুতে টেক্সটটি ডানপাশে স্ক্রিনের বাইরে থাকবে
+          >
+            Ready to Rise ★ Ready to Rise ★ Ready to Rise ★ Ready to Rise ★
+          </textPath>
+        </text>
+      </svg>
+
+      {/* দুই পাশে হালকা ফেড ইফেক্ট যাতে টেক্সটগুলো হুট করে গায়েব না হয় */}
+      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#efeeec] to-transparent z-10" />
+      <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#efeeec] to-transparent z-10" />
     </section>
   );
 };

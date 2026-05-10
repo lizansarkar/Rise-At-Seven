@@ -28,7 +28,7 @@
   }
 
   .btn-sweep:hover {
-    @apply rounded-[12px] text-neutral;
+    @apply rounded-[12px] !text-neutral;
   }
 
   .sweep-text {

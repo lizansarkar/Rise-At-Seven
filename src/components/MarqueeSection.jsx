@@ -80,13 +80,11 @@ const MarqueeSection = () => {
 
   return (
     <div className="w-full bg-[#eeeeee] py-12 overflow-hidden flex items-center relative">
-      {/* Fixed label section */}
       <div className="pl-10 pr-10 whitespace-nowrap z-50 bg-[#eeeeee] relative">
         <span className="text-black font-medium text-sm md:text-base tracking-tight">
           The agency behind ...
         </span>
       </div>
-
       <div className="flex-1 relative h-24 overflow-hidden">
 
         {/* Left Side Blur */}
