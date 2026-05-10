@@ -3,10 +3,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import "./App.css";
-import CustomCursor from "./components/CustomCursor";
-import TextReveal from "./components/TextReveal";
+// import CustomCursor from "./components/CustomCursor";
+// import TextReveal from "./components/TextReveal";
 import MarqueeSection from "./components/MarqueeSection";
-import HorizontalGallery from "./components/HorizontalGallery";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import FeaturedSection from "./components/FeaturedSection";
@@ -70,7 +69,6 @@ function App() {
         <HeroSection />
         <MarqueeSection/>
         <OurStory />
-        {/* <HorizontalGallery /> */}
         <FeaturedSection />
         <ServicesSection />
         <ScrollingMarquee></ScrollingMarquee>

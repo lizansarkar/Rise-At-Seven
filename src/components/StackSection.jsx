@@ -18,7 +18,7 @@ const StackSection = () => {
       textColor: "text-white",
       borderColor: "border-white",
       rotate: 0,
-      img: "https://rise-atseven.transforms.svdcdn.com/production/images/b2087e0cd3f699d3efc76f809ec72a85a6ab378e-1080x1350.jpg?w=800&h=800&q=80&fm=webp&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5",
+      img: "https://rise-atseven.transforms.svdcdn.com/production/images/b2087e0cd3f699d3efc76f809ec72a85a6ab378e-1080x1350.jpg?w=2000&h=2000&q=80&fm=webp&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&dm=1750847630&s=69735376fddade35059585570e316087",
     },
     {
       id: 2,
@@ -28,7 +28,7 @@ const StackSection = () => {
       textColor: "text-[#0d0d0d]",
       borderColor: "border-[#0d0d0d]",
       rotate: 6,
-      img: "https://rise-atseven.transforms.svdcdn.com/production/images/IMG_5023.jpg?w=800",
+      img: "https://static.vecteezy.com/system/resources/thumbnails/049/874/086/small/close-up-of-a-person-s-hand-holding-blank-polaroid-photo.jpeg",
     },
     {
       id: 3,
@@ -38,7 +38,7 @@ const StackSection = () => {
       textColor: "text-[#0d0d0d]",
       borderColor: "border-[#0d0d0d]",
       rotate: 12,
-      img: "https://rise-atseven.transforms.svdcdn.com/production/images/Screenshot-2025-06-23-at-23.15.19.png?w=800&h=800&q=80&fm=webp&fit=crop",
+      img: "https://rise-atseven.transforms.svdcdn.com/production/images/Screenshot-2025-06-23-at-23.15.19.png?w=2000&h=2000&q=80&fm=webp&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&dm=1750847626&s=211fe5c665b93a978c596f9070aed44c",
     },
   ];
 
