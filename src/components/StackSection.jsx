@@ -44,17 +44,16 @@ const StackSection = () => {
   useEffect(() => {
     const total = cards.length;
     let timer;
+    const triggers = [];
 
     const init = () => {
-      // Kill all existing triggers first
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      triggers.forEach((t) => t.kill());
+      triggers.length = 0;
 
       const cards_el = cardsRef.current;
+      if (!containerRef.current || !wrapperRef.current) return;
+      if (cards_el.length !== total || cards_el.some((el) => !el)) return;
 
-      // Verify all card elements exist
-      if (cards_el.some((el) => !el)) return;
-
-      // Set initial positions
       cards_el.forEach((card, i) => {
         gsap.set(card, {
           y: i * PEEK,
@@ -66,68 +65,78 @@ const StackSection = () => {
         });
       });
 
-      // Refresh ScrollTrigger to recalculate positions
-      ScrollTrigger.refresh();
-
-      // Pin the wrapper
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top top",
-        end: `+=${(total - 1) * window.innerHeight}px`,
-        pin: wrapperRef.current,
-        pinSpacing: true,
-        anticipatePin: 1,
-      });
-
-      // Per-card scroll steps
-      cards_el.forEach((card, i) => {
-        if (i === total - 1) return;
-
+      triggers.push(
         ScrollTrigger.create({
           trigger: containerRef.current,
-          start: `+=${i * window.innerHeight}px`,
-          end: `+=${(i + 1) * window.innerHeight}px`,
-          scrub: 1,
+          start: "top top",
+          end: `+=${(total - 1) * window.innerHeight}`,
+          scrub: true,
+          pin: wrapperRef.current,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
           onUpdate(self) {
-            const p = self.progress;
+            const progress = self.progress * (total - 1);
+            const currentStep = Math.min(total - 2, Math.floor(progress));
+            const stepProgress = progress - currentStep;
 
-            gsap.set(card, {
-              y: -p * window.innerHeight * 1.2,
-              rotate: cards[i].rotate - p * 10,
-              opacity: p > 0.5 ? 1 - (p - 0.5) / 0.5 : 1,
-            });
+            cards_el.forEach((card, j) => {
+              const baseY = j * PEEK;
 
-            for (let j = i + 1; j < total; j++) {
-              const slotsBelow = j - (i + 1);
-              const targetY = slotsBelow * PEEK;
-              gsap.set(cards_el[j], {
+              if (j < currentStep) {
+                gsap.set(card, {
+                  y: -window.innerHeight * 1.2,
+                  opacity: 0,
+                });
+                return;
+              }
+
+              if (j === currentStep) {
+                gsap.set(card, {
+                  y: baseY - stepProgress * window.innerHeight * 1.2,
+                  rotate: cards[j].rotate - stepProgress * 10,
+                  opacity:
+                    stepProgress > 0.5 ? 1 - (stepProgress - 0.5) / 0.5 : 1,
+                  scale: 1 - j * 0.03,
+                });
+                return;
+              }
+
+              const targetY = baseY - stepProgress * PEEK;
+              const startScale = 1 - (j - currentStep) * 0.03;
+              const endScale = 1 - (j - currentStep - 1) * 0.03;
+
+              gsap.set(card, {
                 y: targetY,
                 scale: gsap.utils.interpolate(
-                  1 - (j - i) * 0.03,
-                  1 - slotsBelow * 0.03,
-                  p
+                  startScale,
+                  endScale,
+                  stepProgress,
                 ),
+                rotate: cards[j].rotate,
+                opacity: 1,
               });
-            }
+            });
           },
-        });
-      });
+        }),
+      );
+
+      ScrollTrigger.refresh();
     };
 
-    // Wait for DOM + fonts to be ready
-    timer = setTimeout(init, 150);
+    timer = window.setTimeout(init, 150);
 
-    // Also re-init on resize
     const handleResize = () => {
       clearTimeout(timer);
       timer = setTimeout(init, 150);
     };
+
     window.addEventListener("resize", handleResize);
 
     return () => {
       clearTimeout(timer);
       window.removeEventListener("resize", handleResize);
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      triggers.forEach((t) => t.kill());
     };
   }, []);
 

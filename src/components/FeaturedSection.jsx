@@ -81,7 +81,7 @@ function FeaturedSection() {
   const containerRef = useRef(null);
   const leftRef = useRef(null);
   const cursorRef = useRef(null);
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState(featuredData[0].id);
   const [cursorVisible, setCursorVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(true);
 
@@ -98,59 +98,50 @@ function FeaturedSection() {
 
   // GSAP ScrollTrigger setup
   useEffect(() => {
-    // Clean up existing triggers
-    ScrollTrigger.getAll().forEach((trigger) => {
-      trigger.kill();
-    });
+    if (!containerRef.current) return;
 
-    if (!isDesktop || !containerRef.current) return;
-
-    // Small delay to ensure DOM is ready
-    const timer = setTimeout(() => {
+    const triggers = [];
+    const timer = window.setTimeout(() => {
       try {
-        // Pin left section
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          pin: leftRef.current,
-          pinSpacing: false,
-        });
+        if (isDesktop && leftRef.current) {
+          triggers.push(
+            ScrollTrigger.create({
+              trigger: containerRef.current,
+              start: "top top",
+              end: "bottom bottom",
+              pin: leftRef.current,
+              pinSpacing: false,
+              markers: false,
+            }),
+          );
+        }
 
-        // Title animations
         featuredData.forEach((item, i) => {
-          const titleElement = document.querySelector(`.title-item-${i}`);
           const imgElement = document.querySelector(`.img-box-${i}`);
+          if (!imgElement) return;
 
-          if (titleElement && imgElement) {
-            gsap.fromTo(
-              titleElement,
-              { opacity: 0.3, y: 20 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                scrollTrigger: {
-                  trigger: imgElement,
-                  start: "top 70%",
-                  end: "top 30%",
-                  scrub: 0.5,
-                  markers: false,
-                },
-              }
-            );
-          }
+          triggers.push(
+            ScrollTrigger.create({
+              trigger: imgElement,
+              start: "top 70%",
+              end: "top 30%",
+              scrub: 0.5,
+              onEnter: () => setActiveItem(item.id),
+              onEnterBack: () => setActiveItem(item.id),
+              markers: false,
+            }),
+          );
         });
+
+        ScrollTrigger.refresh();
       } catch (err) {
-        console.warn("ScrollTrigger setup warning:", err);
+        console.warn("FeaturedSection ScrollTrigger warning:", err);
       }
     }, 100);
 
     return () => {
       clearTimeout(timer);
-      ScrollTrigger.getAll().forEach((trigger) => {
-        trigger.kill();
-      });
+      triggers.forEach((trigger) => trigger.kill());
     };
   }, [isDesktop]);
 
@@ -234,7 +225,10 @@ function FeaturedSection() {
   };
 
   return (
-    <section ref={containerRef} className="relative w-full bg-[#0a0a0a] text-white">
+    <section
+      ref={containerRef}
+      className="relative w-full bg-[#0a0a0a] text-white"
+    >
       {/* Custom Cursor - only on image hover */}
       <div
         ref={cursorRef}

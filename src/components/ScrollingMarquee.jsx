@@ -16,20 +16,17 @@ const ScrollingMarquee = () => {
       xPercent: -50,
       ease: "none",
       duration: 100,
-      // repeat: -1,
+      repeat: -1,
     });
 
-    ScrollTrigger.create({
+    const trigger = ScrollTrigger.create({
       trigger: "body",
       start: "top top",
       end: "bottom bottom",
       onUpdate: (self) => {
         const velocity = self.getVelocity() * 0.005;
         gsap.to(loop, {
-          timeScale:
-            self.direction === 1
-              ? 1 + Math.abs(velocity)
-              : 1 + Math.abs(velocity),
+          timeScale: 1 + Math.abs(velocity),
           duration: 0.5,
         });
       },
@@ -46,7 +43,11 @@ const ScrollingMarquee = () => {
     };
 
     window.addEventListener("mousemove", moveCursor);
-    return () => window.removeEventListener("mousemove", moveCursor);
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+      if (trigger) trigger.kill();
+      loop.kill();
+    };
   }, []);
 
   const marqueeTexts = [

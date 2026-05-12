@@ -35,12 +35,30 @@ function App() {
       normalizeWheel: true,
     });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    ScrollTrigger.scrollerProxy(document.body, {
+      scrollTop(value) {
+        if (arguments.length) {
+          lenis.scrollTo(value, { immediate: true });
+        }
+        return lenis.scroll;
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+      },
+      pinType: document.body.style.transform ? "transform" : "fixed",
+    });
 
-    requestAnimationFrame(raf);
+    ScrollTrigger.defaults({ scroller: document.body });
+    gsap.ticker.lagSmoothing(0);
+
+    const rafCallback = (time) => {
+      lenis.raf(time * 1000);
+    };
 
     const onScroll = () => {
       ScrollTrigger.update();
@@ -51,10 +69,19 @@ function App() {
       }, 150);
     };
 
+    const onRefresh = () => {
+      lenis.raf(performance.now());
+    };
+
+    gsap.ticker.add(rafCallback);
     lenis.on("scroll", onScroll);
+    ScrollTrigger.addEventListener("refresh", onRefresh);
+    requestAnimationFrame(() => ScrollTrigger.refresh());
 
     return () => {
+      gsap.ticker.remove(rafCallback);
       lenis.off("scroll", onScroll);
+      ScrollTrigger.removeEventListener("refresh", onRefresh);
       lenis.destroy();
       clearTimeout(window.lenisScrollTimeout);
     };
@@ -67,7 +94,7 @@ function App() {
       {/* <CustomCursor /> */}
       <main className="overflow-x-hidden">
         <HeroSection />
-        <MarqueeSection/>
+        <MarqueeSection />
         <OurStory />
         <FeaturedSection />
         <ServicesSection />

@@ -9,9 +9,7 @@ const WaveMarquee = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       textPathRef.current,
       { attr: { startOffset: "15%" } },
       {
@@ -22,11 +20,16 @@ const WaveMarquee = () => {
           end: "bottom top",
           scrub: 1.5,
         },
-      }
+      },
     );
 
+    const trigger = tween.scrollTrigger;
+
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      if (trigger) {
+        trigger.kill();
+      }
+      tween.kill();
     };
   }, []);
 
@@ -57,11 +60,7 @@ const WaveMarquee = () => {
             fill: "#1a1a1a",
           }}
         >
-          <textPath
-            ref={textPathRef}
-            href="#curvePath"
-            startOffset="15%"
-          >
+          <textPath ref={textPathRef} href="#curvePath" startOffset="15%">
             Ready to Rise at Seven Ready to Rise at Seven
           </textPath>
         </text>
