@@ -51,54 +51,78 @@
   }
 }
 
-.hover-reveal-bg {
-  position: absolute;
-  inset: 0;
-  background-color: var(--hover-bg-color);
-  clip-path: circle(0% at 50% 100%);
-  transition: clip-path 2s cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: 5;
-}
-.active-reveal .hover-reveal-bg {
-  clip-path: circle(150% at 50% 100%);
-}
-
-/* Image fade and scale on hover */
+/* Image containers - proper z-index and positioning */
 .img-box-0,
 .img-box-1,
 .img-box-2,
-.img-box-3 {
+.img-box-3,
+.img-box-4,
+.img-box-5,
+.img-box-6,
+.img-box-7,
+.img-box-8,
+.img-box-9 {
   position: relative;
+  will-change: opacity;
 }
-
+ 
 /* Title smooth transitions */
 .title-item-0,
 .title-item-1,
 .title-item-2,
-.title-item-3 {
+.title-item-3,
+.title-item-4,
+.title-item-5,
+.title-item-6,
+.title-item-7,
+.title-item-8,
+.title-item-9 {
   will-change: opacity, transform;
+  user-select: none;
 }
-
-/* Custom scrollbar styling (optional) */
+ 
+/* Custom scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
+ 
 ::-webkit-scrollbar-track {
   background: #0a0a0a;
 }
-
+ 
 ::-webkit-scrollbar-thumb {
   background: #333;
   border-radius: 4px;
 }
-
+ 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
+ 
+/* Prevent layout shift during scroll */
+* {
+  scrollbar-gutter: stable;
+}
+ 
+/* Utility layer */
 @layer components {
   .opacity-35 {
     opacity: 0.35;
+  }
+}
+ 
+/* Mobile responsive adjustments */
+@media (max-width: 1024px) {
+  .title-item-0,
+  .title-item-1,
+  .title-item-2,
+  .title-item-3,
+  .title-item-4,
+  .title-item-5,
+  .title-item-6,
+  .title-item-7,
+  .title-item-8,
+  .title-item-9 {
+    opacity: 1 !important;
   }
 }
